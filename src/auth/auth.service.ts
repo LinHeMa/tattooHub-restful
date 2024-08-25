@@ -90,15 +90,10 @@ export class AuthService {
     }
   }
 
-  signToken(
+  async signToken(
     userId: number,
     email: string,
-  ): Promise<string> {
-    /**
-     * do not need async because
-     * we only return promise
-     * and not await anything
-     */
+  ): Promise<{ access_token: string }> {
     const payload = {
       // sub is convention for userId
       sub: userId,
@@ -108,9 +103,16 @@ export class AuthService {
     /** get secret from environment variables */
     const secret = this.config.get('JWT_SECRET');
 
-    return this.jwt.signAsync(payload, {
-      expiresIn: '15m',
-      secret,
-    });
+    const access_token = await this.jwt.signAsync(
+      payload,
+      {
+        expiresIn: '15m',
+        secret,
+      },
+    );
+
+    return {
+      access_token,
+    };
   }
 }
