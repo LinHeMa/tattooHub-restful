@@ -1,5 +1,3 @@
-I apologize for the confusion. Here's the README content in English:
-
 # TattooHub RESTful API
 
 This is a RESTful API project built with the NestJS framework for managing a tattoo appointment system.
